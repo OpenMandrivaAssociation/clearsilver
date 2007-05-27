@@ -9,7 +9,7 @@
 Summary: ClearSilver HTML template system
 Name: clearsilver
 Version: 0.10.4
-Release: %mkrel 1
+Release: %mkrel 2
 License: Apache License style
 Group: Networking/WWW
 Source: http://www.clearsilver.net/downloads/%{name}-%{version}.tar.bz2
@@ -70,7 +70,7 @@ clearsilver templating system.
 %if %{with_ruby}
 %package -n ruby-%{name}
 Summary: Neotonic ClearSilver Ruby Module
-Group: Development/Other
+Group: Development/Ruby
 Requires: clearsilver = %version
 
 %description -n ruby-%{name}
