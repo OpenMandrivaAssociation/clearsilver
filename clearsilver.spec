@@ -144,7 +144,7 @@ rm -Rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 %doc CS_LICENSE INSTALL LICENSE README scripts/cs_lint.py contrib/cs-mode.el 
 %{_bindir}/*
-%{_mandir}/*/*3.bz2
+%{_mandir}/*/**
 
 %files devel
 %defattr(-,root,root)
