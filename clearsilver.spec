@@ -108,7 +108,7 @@ perl -pi -e 's/555/755/' ruby/install.rb
 
 %make
 
-cat > README.MandrakeLinux << EOF
+cat > README.MandrivaLinux << EOF
 This package only includes python, perl and ruby bindings.
 
 Java needs a JVM, so this cannot be done for the moment.
