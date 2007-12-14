@@ -142,7 +142,7 @@ rm -Rf $RPM_BUILD_ROOT
 # emacs mode
 %files 
 %defattr(-,root,root)
-%doc CS_LICENSE INSTALL LICENSE README scripts/cs_lint.py contrib/cs-mode.el 
+%doc CS_LICENSE INSTALL LICENSE README README.MandrivaLinux scripts/cs_lint.py contrib/cs-mode.el 
 %{_bindir}/*
 %{_mandir}/*/**
 
