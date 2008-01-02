@@ -25,6 +25,7 @@ BuildRequires: perl-devel
 %if %{with_ruby}
 BuildRequires: ruby-devel >= 1.4.5
 %endif
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 
 %description
 ClearSilver is a fast, powerful, and language-neutral HTML template system. 
