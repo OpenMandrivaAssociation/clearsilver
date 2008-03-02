@@ -8,8 +8,8 @@
 %{?_with_python: %{expand: %%global build_python 1}}
 Summary: ClearSilver HTML template system
 Name: clearsilver
-Version: 0.10.4
-Release: %mkrel 3
+Version: 0.10.5
+Release: %mkrel 1
 License: Apache License style
 Group: Networking/WWW
 Source: http://www.clearsilver.net/downloads/%{name}-%{version}.tar.bz2
