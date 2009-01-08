@@ -9,11 +9,13 @@
 Summary: ClearSilver HTML template system
 Name: clearsilver
 Version: 0.10.5
-Release: %mkrel 3
+Release: %mkrel 1
 License: Apache License style
 Group: Networking/WWW
 Source: http://www.clearsilver.net/downloads/%{name}-%{version}.tar.bz2
-Patch1: clearsilver-0.9.14.x86_64.patch 
+Patch0: clearsilver-0.10.5-mandriva.patch
+Patch1: clearsilver-0.10.5-regression.patch
+Patch2: test.patch
 URL: http://www.clearsilver.net/
 BuildRequires: zlib-devel
 %if %{with_python}
@@ -28,14 +30,14 @@ BuildRequires: ruby-devel >= 1.4.5
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 
 %description
-ClearSilver is a fast, powerful, and language-neutral HTML template system. 
-In both static content sites and dynamic HTML applications, it provides a 
-separation between presentation code and application logic which makes 
+ClearSilver is a fast, powerful, and language-neutral HTML template system.
+In both static content sites and dynamic HTML applications, it provides a
+separation between presentation code and application logic which makes
 working with your project easier.
 
-Because it's written as a C-library, and exported to scripting languages 
-like Python and Perl via modules, it is extremely fast compared to template 
-systems written in a script language. 
+Because it's written as a C-library, and exported to scripting languages
+like Python and Perl via modules, it is extremely fast compared to template
+systems written in a script language.
 
 %package devel
 Summary: ClearSilver development package
@@ -80,8 +82,10 @@ clearsilver templating system.
 
 %prep
 
-%setup -q 
-%patch1 -p0
+%setup -q
+%patch0 -p0
+%patch1 -p1
+%patch2 -p0
 
 %build
 %configure --disable-apache --disable-java --disable-csharp \
@@ -96,9 +100,9 @@ clearsilver templating system.
 --disable-perl \
 %endif
 %if %{with_python}
---enable-python 
+--enable-python
 %else
---disable-python 
+--disable-python
 %endif
 perl -pi -e 's/PYTHON\s*=.*/PYTHON=python/' rules.mk
 perl -pi -e 's#DESTDIR\s*=.*#DESTDIR=\$(RPM_BUILD_ROOT)/\$(PREF)/#' rules.mk
@@ -140,9 +144,9 @@ rm -Rf $RPM_BUILD_ROOT
 #
 # TODO add script ( in script/ subdir )
 # emacs mode
-%files 
+%files
 %defattr(-,root,root)
-%doc CS_LICENSE INSTALL LICENSE README README.MandrivaLinux scripts/cs_lint.py contrib/cs-mode.el 
+%doc CS_LICENSE INSTALL LICENSE README README.MandrivaLinux scripts/cs_lint.py contrib/cs-mode.el
 %{_bindir}/*
 %{_mandir}/*/**
 
