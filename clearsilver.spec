@@ -9,7 +9,7 @@
 Summary: ClearSilver HTML template system
 Name: clearsilver
 Version: 0.10.5
-Release: %mkrel 4
+Release:	5
 License: Apache License style
 Group: Networking/WWW
 Source: http://www.clearsilver.net/downloads/%{name}-%{version}.tar.bz2
