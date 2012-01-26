@@ -76,32 +76,30 @@ clearsilver templating system.
 %endif
 
 %prep
-
 %setup -q
 %patch0 -p0
 %patch1 -p1
 %patch2 -p0
 
 %build
-%configure --disable-apache --disable-java --disable-csharp \
+%configure	--disable-apache \
+		--disable-java \
+		--disable-csharp \
 %if %{with ruby}
---enable-ruby \
+		--enable-ruby \
 %else
---disable-ruby \
+		--disable-ruby \
 %endif
 %if %{with perl}
---enable-perl \
+		--enable-perl \
 %else
---disable-perl \
+		--disable-perl \
 %endif
 %if %{with python}
---enable-python
+		--enable-python
 %else
---disable-python
+		--disable-python
 %endif
-perl -pi -e 's/PYTHON\s*=.*/PYTHON=python/' rules.mk
-perl -pi -e 's#DESTDIR\s*=.*#DESTDIR=\$(RPM_BUILD_ROOT)/\$(PREF)/#' rules.mk
-perl -pi -e 's#PYTHON_SITE\s*=.*#PYTHON_SITE=%{_lib}/python%{py_ver}/ #' rules.mk
 perl -pi -e 's#install.rb install$#install.rb install --prefix=%{buildroot}#' ruby/Makefile
 perl -pi -e 's/555/755/' ruby/install.rb
 
@@ -119,16 +117,14 @@ perl -pi -e 's#/usr/local/#/usr/#' scripts/document.py
 %if %{with perl}
 cd perl
 perl Makefile.PL INSTALLDIRS=vendor
-make install DESTDIR=$RPM_BUILD_ROOT/
+%makeinstall_std
 cd ..
 %endif
 %makeinstall_std
 
 %if %{with python}
 cd python
-
-export PREF=%_prefix
-make install
+python setup.py install --root=%{buildroot}
 cd ..
 %endif
 
@@ -150,7 +146,8 @@ cd ..
 %if %{with python}
 %files -n python-%{name}
 %doc README.python
-%{_libdir}/python%{py_ver}/neo_cgi.so
+%{python_sitearch}/neo_cgi.so
+%{python_sitearch}/clearsilver-%{version}-py%{py_ver}.egg-info
 %endif
 
 %if %{with perl}
