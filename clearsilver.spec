@@ -101,7 +101,7 @@ clearsilver templating system.
 %endif
 perl -pi -e 's/PYTHON\s*=.*/PYTHON=python/' rules.mk
 perl -pi -e 's#DESTDIR\s*=.*#DESTDIR=\$(RPM_BUILD_ROOT)/\$(PREF)/#' rules.mk
-perl -pi -e 's#PYTHON_SITE\s*=.*#PYTHON_SITE=%{_lib}/python%pyver/ #' rules.mk
+perl -pi -e 's#PYTHON_SITE\s*=.*#PYTHON_SITE=%{_lib}/python%{py_ver}/ #' rules.mk
 perl -pi -e 's#install.rb install$#install.rb install --prefix=%{buildroot}#' ruby/Makefile
 perl -pi -e 's/555/755/' ruby/install.rb
 
@@ -150,7 +150,7 @@ cd ..
 %if %{with python}
 %files -n python-%{name}
 %doc README.python
-%{_libdir}/python%pyver/neo_cgi.so
+%{_libdir}/python%{py_ver}/neo_cgi.so
 %endif
 
 %if %{with perl}
