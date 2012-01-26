@@ -138,7 +138,7 @@ cd ..
 %files
 %doc CS_LICENSE INSTALL LICENSE README README.MandrivaLinux scripts/cs_lint.py contrib/cs-mode.el
 %{_bindir}/*
-%{_mandir}/*/**
+%{_mandir}/man3/*.3.*
 
 %files devel
 %defattr(-,root,root)
@@ -158,7 +158,7 @@ cd ..
 %{perl_vendorlib}/*/ClearSilver.pm
 %{perl_vendorlib}/*/auto/ClearSilver/ClearSilver.so
 %dir %{perl_vendorlib}/*/auto/ClearSilver/
-%{_mandir}/man3/*3pm.*
+%{_mandir}/man3/*.3pm*
 %endif
 
 %if %{with ruby}
