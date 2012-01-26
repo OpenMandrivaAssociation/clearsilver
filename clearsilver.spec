@@ -1,10 +1,7 @@
-%define with_ruby 1
-%define with_python 1
-%define with_perl 1
+%bcond_without	ruby
+%bcond_without	python
+%bcond_without	perl
 
-%{?_with_ruby: %{expand: %%global build_ruby 1}}
-%{?_with_perl: %{expand: %%global build_perl 1}}
-%{?_with_python: %{expand: %%global build_python 1}}
 Summary:	ClearSilver HTML template system
 Name:		clearsilver
 Version:	0.10.5
@@ -17,13 +14,13 @@ Patch1:		clearsilver-0.10.5-regression.patch
 Patch2:		test.patch
 URL:		http://www.clearsilver.net/
 BuildRequires:	zlib-devel
-%if %{with_python}
+%if %{with python}
 BuildRequires:	python-devel
 %endif
-%if %{with_perl}
+%if %{with perl}
 BuildRequires:	perl-devel
 %endif
-%if %{with_ruby}
+%if %{with ruby}
 BuildRequires:	ruby-devel >= 1.4.5
 %endif
 
@@ -45,7 +42,7 @@ Group:		Development/C
 This package provides needed files to develop extension
 to ClearSilver.
 
-%if %{with_python}
+%if %{with python}
 %package -n	python-%{name}
 Summary:	Neotonic ClearSilver Python Module
 Group:		Development/Python
@@ -56,7 +53,7 @@ This package provides a python interface to the
 clearsilver CGI kit and templating system.
 %endif
 
-%if %{with_perl}
+%if %{with perl}
 %package -n	perl-ClearSilver
 Summary:	Neotonic ClearSilver Perl Module
 Group:		Development/Perl
@@ -67,7 +64,7 @@ The clearsilver-perl package provides a perl interface to the
 clearsilver templating system.
 %endif
 
-%if %{with_ruby}
+%if %{with ruby}
 %package -n	ruby-%{name}
 Summary:	Neotonic ClearSilver Ruby Module
 Group:		Development/Ruby
@@ -87,17 +84,17 @@ clearsilver templating system.
 
 %build
 %configure --disable-apache --disable-java --disable-csharp \
-%if %{with_ruby}
+%if %{with ruby}
 --enable-ruby \
 %else
 --disable-ruby \
 %endif
-%if %{with_perl}
+%if %{with perl}
 --enable-perl \
 %else
 --disable-perl \
 %endif
-%if %{with_python}
+%if %{with python}
 --enable-python
 %else
 --disable-python
@@ -119,7 +116,7 @@ C# didn't compile.
 EOF
 %install
 perl -pi -e 's#/usr/local/#/usr/#' scripts/document.py
-%if %{with_perl}
+%if %{with perl}
 cd perl
 perl Makefile.PL INSTALLDIRS=vendor
 make install DESTDIR=$RPM_BUILD_ROOT/
@@ -127,7 +124,7 @@ cd ..
 %endif
 %makeinstall_std
 
-%if %{with_python}
+%if %{with python}
 cd python
 
 export PREF=%_prefix
@@ -150,13 +147,13 @@ cd ..
 %{_libdir}/libneo_cs.a
 %{_libdir}/libneo_utl.a
 
-%if %{with_python}
+%if %{with python}
 %files -n python-%{name}
 %doc README.python
 %{_libdir}/python%pyver/neo_cgi.so
 %endif
 
-%if %{with_perl}
+%if %{with perl}
 %files -n perl-ClearSilver
 %{perl_vendorlib}/*/ClearSilver.pm
 %{perl_vendorlib}/*/auto/ClearSilver/ClearSilver.so
@@ -164,15 +161,13 @@ cd ..
 %{_mandir}/man3/*3pm.*
 %endif
 
-%if %{with_ruby}
+%if %{with ruby}
 %defattr(-,root,root)
 %{ruby_sitelibdir}/neo.rb
 %{ruby_sitearchdir}/hdf.so
 %endif
 
-#%if %{with_apache_subpackage}
+#%if %{with apache_subpackage}
 #%files apache
 #%{apache_libexec}/mod_ecs.so
 #%endif
-
-
