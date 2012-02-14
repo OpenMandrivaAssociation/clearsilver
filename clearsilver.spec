@@ -12,6 +12,7 @@ Source0:	http://www.clearsilver.net/downloads/%{name}-%{version}.tar.bz2
 Patch0:		clearsilver-0.10.5-mandriva.patch
 Patch1:		clearsilver-0.10.5-regression.patch
 Patch2:		test.patch
+Patch3:		clearsilver-ruby-1.9.patch
 URL:		http://www.clearsilver.net/
 BuildRequires:	zlib-devel
 %if %{with python}
@@ -80,6 +81,7 @@ clearsilver templating system.
 %patch0 -p0
 %patch1 -p1
 %patch2 -p0
+%patch3 -p1 -b .ruby19~
 
 %build
 %configure	--disable-apache \
