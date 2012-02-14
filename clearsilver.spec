@@ -114,6 +114,9 @@ Java needs a JVM, so this cannot be done for the moment.
 C# didn't compile.
 
 EOF
+cd python
+LDSHARED="gcc -shared -lz %{ldflags}" python setup.py build
+
 %install
 perl -pi -e 's#/usr/local/#/usr/#' scripts/document.py
 %if %{with perl}
