@@ -1,0 +1,188 @@
+Index: configure
+===================================================================
+--- configure
++++ configure	2009-01-08 13:27:10.000000000 +0100
+@@ -6513,7 +6513,7 @@
+ echo $ECHO_N "checking for python includes... $ECHO_C" >&6
+   python_inc=no
+   python_lib=no
+-  python_search_path="/neo/opt /usr/local /usr /c"
++  python_search_path="/usr"
+   python_versions="2.4 2.3 2.2 2.1 2.0 1.5 24 23 22 21 20 15"
+   if test $cs_cv_python_path != "no" -a -x $cs_cv_python_path; then
+     python_bin=$cs_cv_python_path
+@@ -6810,6 +6810,7 @@
+ _ACJNI_FOLLOWED="$_cur"
+ 
+ _JTOPDIR=`echo "$_ACJNI_FOLLOWED" | sed -e 's://*:/:g' -e 's:/[^/]*$::'`
++_JTOPDIR="$java_path"
+ case "$host_os" in
+         darwin*)        _JTOPDIR=`echo "$_JTOPDIR" | sed -e 's:/[^/]*$::'`
+                         _JINC="$_JTOPDIR/Headers";;
+Index: cgi/cgi.c
+===================================================================
+--- cgi/cgi.c
++++ cgi/cgi.c	2009-01-08 13:25:49.000000000 +0100
+@@ -503,7 +503,7 @@
+ 
+   if ((debugger = hdf_get_value (cgi->hdf, "Config.Debugger", NULL)) == NULL)
+   {
+-    debugger = "/usr/local/bin/sudo /usr/local/bin/ddd -display %s %s %d";
++    debugger = "/usr/bin/sudo /usr/local/bin/ddd -display %s %s %d";
+   }
+ 
+   if (!pid)
+@@ -1067,7 +1067,7 @@
+ 
+   s = hdf_get_value (cgi->hdf, "Query.debug", NULL);
+   e = hdf_get_value (cgi->hdf, "Config.DebugPassword", NULL);
+-  if (hdf_get_int_value(cgi->hdf, "Config.DebugEnabled", 0) && 
++  if (hdf_get_int_value(cgi->hdf, "Config.DebugEnabled", 0) &&
+       s && e && !strcmp(s, e)) do_debug = 1;
+   do_timefooter = hdf_get_int_value (cgi->hdf, "Config.TimeFooter", 1);
+   ws_strip_level = hdf_get_int_value (cgi->hdf, "Config.WhiteSpaceStrip", 1);
+Index: imd/imdm.py
+===================================================================
+--- imd/imdm.py
++++ imd/imdm.py	2009-01-08 13:27:26.000000000 +0100
+@@ -1,7 +1,7 @@
+-#!/usr/local/bin/python
++#!/usr/bin/python
+ #
+ # imdm
+-# 
++#
+ # IMage Display Master
+ #
+ # This uses the affiliated C-cgi "imd" to build a caching image display
+@@ -17,7 +17,7 @@
+ imagestartfile = "/~jeske/Images/jeskealbum.imc"
+ 
+ THUMB_WIDTH = 120
+-THUMB_HEIGHT = 90 
++THUMB_HEIGHT = 90
+ 
+ # ------------------------------------------------------------------------------------
+ #
+@@ -78,11 +78,11 @@
+ 
+     if not image_index is None:
+ 	sys.stdout.write("<CENTER><TABLE WIDTH=50% BORDER=1><TR>")
+-	
++
+ 	# pre-images
+ 	for i in range(1,3):
+ 	    pic_index = image_index - i
+-	    
++
+ 	    picture_path = string.join(string.split(images[pic_index],'/')[1:],'/')
+ 	    sys.stdout.write("<TD ALIGN=CENTER><A HREF=\"%s\">%s</A></TD>" % (makepictureurl(album,picture_path),makethumbnailimgtag(images[pic_index])))
+ 
+@@ -93,11 +93,11 @@
+ 	    pic_index = image_index + i
+ 	    if pic_index >= len(images):
+ 		pic_index = pic_index - len(images)
+-	    
++
+ 	    picture_path = string.join(string.split(images[pic_index],'/')[1:],'/')
+ 	    sys.stdout.write("<TD ALIGN=CENTER><A HREF=\"%s\">%s</A></TD>" % (makepictureurl(album,picture_path), makethumbnailimgtag(images[pic_index])))
+ 	sys.stdout.write("</TR></TABLE></CENTER>\n")
+-	    
++
+     # navigation
+ 
+ 
+@@ -105,15 +105,15 @@
+ #
+ #  albumdisplay
+ 
+-    
++
+ 
+ def albumdisplay(basedir,album,columns=7,rows=5):
+     next_page = 0
+ 
+-    
++
+     sys.stdout.write("<table border=0 bgcolor=#cccccc width=100%%><tr><td align=center><font size=+2>%s</font></td></tr></table>" % album)
+ 
+-    imgcount = columns * rows 
++    imgcount = columns * rows
+     images = albumoverview(basedir,album,count=(imgcount + 1),skip=0)
+ 
+     if len(images) > imgcount:
+@@ -131,7 +131,7 @@
+ 
+     if next_page:
+ 	sys.stdout.write("more...")
+-    
++
+ 
+ # ------------------------------------------------------------------------------------
+ #
+@@ -142,11 +142,11 @@
+ 	if os.path.isdir(os.path.join(dir,a_dir)):
+ 	    sys.stdout.write("<CENTER>")
+ 	    sys.stdout.write("<TABLE BGCOLOR=#ccccc WIDTH=50% BORDER=0 CELLSPACING=1 CELLPADDING=1>")
+-	    
++
+ 	    sys.stdout.write("<TR><TD> <font size=+2><A HREF=\"%s\">%s</A></font></TD></TR>" % (makealbumurl(a_dir),a_dir))
+ 
+ 	    sys.stdout.write("<TR><TD ALIGN=CENTER><TABLE BGCOLOR=#FFFFFF WIDTH=100% BORDER=0 CELSPACING=0 CELLPADDING=0><TR>")
+-			     
++
+ 	    for a_file in albumoverview(dir,a_dir):
+ 		picture_path = string.join(string.split(a_file,'/')[1:],'/')
+ 		sys.stdout.write("<TD ALIGN=CENTER><A HREF=\"%s\">%s</A></TD>\n" % (makepictureurl(a_dir,picture_path),makethumbnailimgtag(a_file)))
+@@ -186,7 +186,7 @@
+     myvars = readvars(os.environ['PATH_TRANSLATED'])
+ 
+     sys.stderr.write(repr(myvars))
+-    
++
+     global albumstartfile, imagestartfile
+     albumstartfile = os.environ['PATH_INFO']
+     imagestartfile = myvars['IMGSTARTFILE']
+Index: java-jni/Makefile
+===================================================================
+--- java-jni/Makefile
++++ java-jni/Makefile	2009-01-08 13:28:18.000000000 +0100
+@@ -40,14 +40,14 @@
+ org_clearsilver_CS.h: $(NEO_UTIL_JAVA_JAR)
+ 	$(JAVAH) -classpath $(NEO_UTIL_JAVA_JAR) -jni org.clearsilver.CS
+ 
+-CSTest.class: CSTest.java
++CSTest.class: CSTest.java $(NEO_UTIL_JAVA_JAR)
+ 	$(JAVAC) -classpath $(NEO_UTIL_JAVA_JAR) CSTest.java
+ 
+ gold: CSTest.class
+ 	@/bin/sh -c "LD_LIBRARY_PATH=$(NEOTONIC_ROOT)/java-jni; export LD_LIBRARY_PATH; CLASSPATH=$(NEO_UTIL_JAVA_JAR):.; export CLASSPATH; $(JAVA_PATH)/bin/java CSTest" > javatest.gold
+ 	@echo "Generated gold files"
+ 
+-test: CSTest.class
++test: CSTest.class $(NEO_UTIL_SO)
+ 	@echo "Running java test"
+ 	@failed=0; \
+ 	rm -f javatest.out; \
+Index: ruby/Makefile
+===================================================================
+--- ruby/Makefile
++++ ruby/Makefile	2009-01-08 13:28:43.000000000 +0100
+@@ -15,7 +15,7 @@
+ 	$(RUBY) install.rb config -- --with-hdf-include=../../.. --with-hdf-lib=../../../libs --make-prog=$(MAKE)
+ 
+ ext/hdf/hdf.so: config.save
+-	$(RUBY) install.rb setup 
++	$(RUBY) install.rb setup
+ 
+ gold: ext/hdf/hdf.so
+ 	$(RUBY) -Ilib -Iext/hdf test/hdftest.rb > hdftest.gold;
+@@ -41,7 +41,7 @@
+ 
+ 
+ install: all
+-	$(RUBY) install.rb install
++	$(RUBY) install.rb install --prefix=$(DESTDIR)
+ 
+ clean:
+ 	$(RM) ext/hdf/*.o ext/hdf/*.so
