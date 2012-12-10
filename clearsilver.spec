@@ -173,3 +173,74 @@ cd ..
 #%files apache
 #%{apache_libexec}/mod_ecs.so
 #%endif
+
+
+%changelog
+* Wed Feb 15 2012 Per Øyvind Karlsen <peroyvind@mandriva.org> 0.10.5-5
++ Revision: 774115
+- fix python extension build
+- fix build against ruby 1.9 (P3, from Fedora)
+- clean up python install etc..
+- fix python version macro
+- fix man page being packaged into two packages
+- use %%bcond
+- cleanups
+- mass rebuild of perl extensions against perl 5.14.2
+
+* Wed Nov 03 2010 Michael Scherer <misc@mandriva.org> 0.10.5-4mdv2011.0
++ Revision: 592730
+- rebuild for python 2.7
+
+* Tue Jul 20 2010 Jérôme Quelin <jquelin@mandriva.org> 0.10.5-3mdv2011.0
++ Revision: 555700
+- rebuild
+
+* Thu Sep 10 2009 Thierry Vignaud <tv@mandriva.org> 0.10.5-2mdv2010.0
++ Revision: 437056
+- rebuild
+
+* Thu Jan 08 2009 Jérôme Soyer <saispo@mandriva.org> 0.10.5-1mdv2009.1
++ Revision: 327100
+- Rediff patch and upgrade
+
+  + Thierry Vignaud <tv@mandriva.org>
+    - rebuild
+
+  + Michael Scherer <misc@mandriva.org>
+    - update to new version 0.10.5
+
+* Mon Jan 21 2008 Thierry Vignaud <tv@mandriva.org> 0.10.4-3mdv2008.1
++ Revision: 155657
+- rebuild for new perl
+- kill re-definition of %%buildroot on Pixel's request
+
+  + Olivier Blin <blino@mandriva.org>
+    - restore BuildRoot
+
+* Fri Dec 14 2007 Thierry Vignaud <tv@mandriva.org> 0.10.4-2mdv2008.1
++ Revision: 119948
+- do package README.MandrivaLinux
+- s/mandrake/mandriva/
+- fix man pages
+
+* Sun May 27 2007 Pascal Terjan <pterjan@mandriva.org> 0.10.4-2mdv2008.0
++ Revision: 31642
+- use Development/Ruby for tuby sub package
+
+
+* Mon Dec 18 2006 Michael Scherer <misc@mandriva.org> 0.10.4-1mdv2007.0
++ Revision: 98546
+- update to 0.10.4
+
+* Mon Dec 11 2006 Michael Scherer <misc@mandriva.org> 0.10.3-2mdv2007.1
++ Revision: 94813
+- rebuild for new python
+
+* Wed Nov 01 2006 Michael Scherer <misc@mandriva.org> 0.10.3-1mdv2007.1
++ Revision: 74904
+- fix ruby binding build, remove useless macros
+- update to version 0.10.3
+- fix building of perl module
+- bunzip patch
+- Import clearsilver
+
