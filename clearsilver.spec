@@ -13,7 +13,7 @@ Patch0:		clearsilver-0.10.5-mandriva.patch
 Patch1:		clearsilver-0.10.5-regression.patch
 Patch2:		test.patch
 Patch3:		clearsilver-ruby-1.9.patch
-URL:		http://www.clearsilver.net/
+URL:		https://www.clearsilver.net/
 BuildRequires:	zlib-devel
 %if %{with python}
 BuildRequires:	python-devel
